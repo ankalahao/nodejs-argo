@@ -7,560 +7,215 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        /* CSS Custom Properties - eliminates repeated color/spacing values */
+        :root {
+            --color-primary: #4361ee;
+            --color-primary-dark: #3a56d4;
+            --color-primary-light: #eef2ff;
+            --color-primary-bg: #f0f4ff;
+            --color-bg: #f9fbfd;
+            --color-text: #333;
+            --color-text-dark: #222;
+            --color-text-muted: #666;
+            --color-text-light: #555;
+            --color-text-lighter: #777;
+            --color-white: #fff;
+            --color-footer-bg: #222;
+            --font-heading: 'Poppins', sans-serif;
+            --font-body: 'Roboto', sans-serif;
+            --section-padding: 100px 0;
+            --card-radius: 10px;
+            --card-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            --card-shadow-hover: 0 15px 30px rgba(0, 0, 0, 0.1);
+            --hover-lift: translateY(-10px);
+            --btn-padding: 12px 28px;
+            --btn-radius: 6px;
+            --transition-fast: 0.3s;
         }
-        
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body {
-            font-family: 'Roboto', sans-serif;
+            font-family: var(--font-body);
             line-height: 1.6;
-            color: #333;
-            background-color: #f9fbfd;
+            color: var(--color-text);
+            background-color: var(--color-bg);
         }
-        
+
         h1, h2, h3, h4 {
-            font-family: 'Poppins', sans-serif;
+            font-family: var(--font-heading);
             font-weight: 600;
             line-height: 1.3;
         }
-        
+
         .container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
+            width: 100%; max-width: 1200px;
+            margin: 0 auto; padding: 0 20px;
         }
-        
+
+        /* Shared card style (feature-card, pricing-card, testimonial) */
+        .card {
+            background: var(--color-white);
+            border-radius: var(--card-radius);
+            box-shadow: var(--card-shadow);
+            transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+        }
+        .card:hover {
+            transform: var(--hover-lift);
+            box-shadow: var(--card-shadow-hover);
+        }
+
+        /* Shared section padding */
+        .section { padding: var(--section-padding); }
+
+        /* Shared section title */
+        .section-title { text-align: center; margin-bottom: 60px; }
+        .section-title h2 { font-size: 36px; color: var(--color-text-dark); margin-bottom: 15px; }
+        .section-title p { color: var(--color-text-muted); max-width: 700px; margin: 0 auto; }
+
+        /* Shared button base */
+        .btn {
+            border: none; padding: var(--btn-padding); border-radius: var(--btn-radius);
+            font-weight: 600; cursor: pointer; transition: all var(--transition-fast);
+        }
+
         /* Header & Navigation */
         header {
-            background-color: #fff;
+            background-color: var(--color-white);
             box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
-            position: fixed;
-            width: 100%;
-            z-index: 1000;
+            position: fixed; width: 100%; z-index: 1000;
         }
-        
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 0;
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-        }
-        
-        .logo-icon {
-            color: #4361ee;
-            font-size: 28px;
-            margin-right: 10px;
-        }
-        
-        .logo-text {
-            font-family: 'Poppins', sans-serif;
-            font-size: 24px;
-            font-weight: 700;
-            color: #333;
-        }
-        
-        .logo-text span {
-            color: #4361ee;
-        }
-        
-        .nav-links {
-            display: flex;
-            list-style: none;
-        }
-        
-        .nav-links li {
-            margin-left: 30px;
-        }
-        
-        .nav-links a {
-            text-decoration: none;
-            color: #555;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-        
-        .nav-links a:hover {
-            color: #4361ee;
-        }
-        
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; }
+        .logo { display: flex; align-items: center; }
+        .logo-icon { color: var(--color-primary); font-size: 28px; margin-right: 10px; }
+        .logo-text { font-family: var(--font-heading); font-size: 24px; font-weight: 700; color: var(--color-text); }
+        .logo-text span { color: var(--color-primary); }
+        .nav-links { display: flex; list-style: none; }
+        .nav-links li { margin-left: 30px; }
+        .nav-links a { text-decoration: none; color: var(--color-text-light); font-weight: 500; transition: color var(--transition-fast); }
+        .nav-links a:hover { color: var(--color-primary); }
+
         .cta-button {
-            background-color: #4361ee;
-            color: white;
-            border: none;
-            padding: 12px 28px;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.2s;
+            background-color: var(--color-primary); color: white;
+            border: none; padding: var(--btn-padding); border-radius: var(--btn-radius);
+            font-weight: 600; cursor: pointer;
+            transition: background-color var(--transition-fast), transform 0.2s;
         }
-        
-        .cta-button:hover {
-            background-color: #3a56d4;
-            transform: translateY(-2px);
-        }
-        
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 24px;
-            color: #333;
-            cursor: pointer;
-        }
-        
+        .cta-button:hover { background-color: var(--color-primary-dark); transform: translateY(-2px); }
+
+        .mobile-menu-btn { display: none; background: none; border: none; font-size: 24px; color: var(--color-text); cursor: pointer; }
+
         /* Hero Section */
-        .hero {
-            padding: 150px 0 100px;
-            background: linear-gradient(135deg, #f0f4ff 0%, #f9fbfd 100%);
-        }
-        
-        .hero-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        
-        .hero-text {
-            flex: 1;
-            padding-right: 40px;
-        }
-        
-        .hero-text h1 {
-            font-size: 48px;
-            margin-bottom: 20px;
-            color: #222;
-        }
-        
-        .hero-text h1 span {
-            color: #4361ee;
-        }
-        
-        .hero-text p {
-            font-size: 18px;
-            color: #666;
-            margin-bottom: 30px;
-            max-width: 600px;
-        }
-        
-        .hero-buttons {
-            display: flex;
-            gap: 15px;
-        }
-        
+        .hero { padding: 150px 0 100px; background: linear-gradient(135deg, var(--color-primary-bg) 0%, var(--color-bg) 100%); }
+        .hero-content { display: flex; align-items: center; justify-content: space-between; }
+        .hero-text { flex: 1; padding-right: 40px; }
+        .hero-text h1 { font-size: 48px; margin-bottom: 20px; color: var(--color-text-dark); }
+        .hero-text h1 span { color: var(--color-primary); }
+        .hero-text p { font-size: 18px; color: var(--color-text-muted); margin-bottom: 30px; max-width: 600px; }
+        .hero-buttons { display: flex; gap: 15px; }
         .secondary-button {
-            background-color: white;
-            color: #4361ee;
-            border: 2px solid #4361ee;
-            padding: 12px 28px;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
+            background-color: white; color: var(--color-primary); border: 2px solid var(--color-primary);
+            padding: var(--btn-padding); border-radius: var(--btn-radius);
+            font-weight: 600; cursor: pointer; transition: all var(--transition-fast);
         }
-        
-        .secondary-button:hover {
-            background-color: #f0f4ff;
-        }
-        
-        .hero-image {
-            flex: 1;
-            text-align: center;
-        }
-        
-        .hero-image img {
-            max-width: 100%;
-            border-radius: 10px;
-            box-shadow: 0 20px 40px rgba(67, 97, 238, 0.15);
-        }
-        
-        /* Features Section */
-        .section-title {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-        
-        .section-title h2 {
-            font-size: 36px;
-            color: #222;
-            margin-bottom: 15px;
-        }
-        
-        .section-title p {
-            color: #666;
-            max-width: 700px;
-            margin: 0 auto;
-        }
-        
-        .features {
-            padding: 100px 0;
-            background-color: white;
-        }
-        
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-        }
-        
-        .feature-card {
-            background: #fff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-        }
-        
+        .secondary-button:hover { background-color: var(--color-primary-bg); }
+        .hero-image { flex: 1; text-align: center; }
+        .hero-image img { max-width: 100%; border-radius: var(--card-radius); box-shadow: 0 20px 40px rgba(67, 97, 238, 0.15); }
+
+        /* Features */
+        .features { background-color: white; }
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; }
+        .feature-card { padding: 30px; }
         .feature-icon {
-            background-color: #eef2ff;
-            color: #4361ee;
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 20px;
-            font-size: 28px;
+            background-color: var(--color-primary-light); color: var(--color-primary);
+            width: 70px; height: 70px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            margin-bottom: 20px; font-size: 28px;
         }
-        
-        .feature-card h3 {
-            font-size: 22px;
-            margin-bottom: 15px;
-        }
-        
-        .feature-card p {
-            color: #666;
-        }
-        
-        /* Benefits Section */
-        .benefits {
-            padding: 100px 0;
-            background-color: #f0f4ff;
-        }
-        
-        .benefits-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-        }
-        
-        .benefit-item {
-            text-align: center;
-            padding: 30px 20px;
-        }
-        
-        .benefit-icon {
-            color: #4361ee;
-            font-size: 40px;
-            margin-bottom: 20px;
-        }
-        
-        .benefit-item h3 {
-            font-size: 22px;
-            margin-bottom: 15px;
-        }
-        
-        .benefit-item p {
-            color: #666;
-        }
-        
+        .feature-card h3 { font-size: 22px; margin-bottom: 15px; }
+        .feature-card p { color: var(--color-text-muted); }
+
+        /* Benefits */
+        .benefits { background-color: var(--color-primary-bg); }
+        .benefits-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
+        .benefit-item { text-align: center; padding: 30px 20px; }
+        .benefit-icon { color: var(--color-primary); font-size: 40px; margin-bottom: 20px; }
+        .benefit-item h3 { font-size: 22px; margin-bottom: 15px; }
+        .benefit-item p { color: var(--color-text-muted); }
+
         /* Testimonials */
-        .testimonials {
-            padding: 100px 0;
-            background-color: white;
-        }
-        
-        .testimonial-slider {
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
-        }
-        
-        .testimonial {
-            background: #f9fbfd;
-            padding: 40px;
-            border-radius: 10px;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-        }
-        
-        .testimonial-text {
-            font-size: 18px;
-            font-style: italic;
-            margin-bottom: 30px;
-            color: #555;
-        }
-        
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
+        .testimonials { background-color: white; }
+        .testimonial-slider { max-width: 800px; margin: 0 auto; position: relative; }
+        .testimonial { background: var(--color-bg); padding: 40px; text-align: center; }
+        .testimonial-text { font-size: 18px; font-style: italic; margin-bottom: 30px; color: var(--color-text-light); }
+        .testimonial-author { display: flex; align-items: center; justify-content: center; }
         .author-avatar {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background-color: #ddd;
-            margin-right: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            color: #4361ee;
-            font-size: 24px;
+            width: 60px; height: 60px; border-radius: 50%; background-color: #ddd;
+            margin-right: 15px; display: flex; align-items: center; justify-content: center;
+            font-weight: bold; color: var(--color-primary); font-size: 24px;
         }
-        
-        .author-info h4 {
-            font-size: 18px;
-            margin-bottom: 5px;
-        }
-        
-        .author-info p {
-            color: #777;
-            font-size: 14px;
-        }
-        
-        /* Pricing Section */
-        .pricing {
-            padding: 100px 0;
-            background-color: #f9fbfd;
-        }
-        
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-        }
-        
-        .pricing-card {
-            background: white;
-            border-radius: 10px;
-            padding: 40px 30px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
-            text-align: center;
-            transition: transform 0.3s;
-        }
-        
-        .pricing-card.featured {
-            border-top: 5px solid #4361ee;
-            transform: scale(1.05);
-            position: relative;
-        }
-        
+        .author-info h4 { font-size: 18px; margin-bottom: 5px; }
+        .author-info p { color: var(--color-text-lighter); font-size: 14px; }
+
+        /* Pricing */
+        .pricing { background-color: var(--color-bg); }
+        .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+        .pricing-card { padding: 40px 30px; text-align: center; }
+        .pricing-card.featured { border-top: 5px solid var(--color-primary); transform: scale(1.05); position: relative; }
         .featured-badge {
-            position: absolute;
-            top: -12px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: #4361ee;
-            color: white;
-            padding: 5px 20px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: 600;
+            position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+            background-color: var(--color-primary); color: white;
+            padding: 5px 20px; border-radius: 20px; font-size: 14px; font-weight: 600;
         }
-        
-        .pricing-card:hover {
-            transform: translateY(-10px);
-        }
-        
-        .pricing-card.featured:hover {
-            transform: scale(1.05) translateY(-10px);
-        }
-        
-        .plan-name {
-            font-size: 24px;
-            margin-bottom: 15px;
-            color: #333;
-        }
-        
-        .plan-price {
-            font-size: 48px;
-            font-weight: 700;
-            color: #4361ee;
-            margin-bottom: 20px;
-        }
-        
-        .plan-price span {
-            font-size: 16px;
-            color: #777;
-        }
-        
-        .plan-features {
-            list-style: none;
-            margin-bottom: 30px;
-        }
-        
-        .plan-features li {
-            padding: 10px 0;
-            border-bottom: 1px solid #eee;
-            color: #555;
-        }
-        
-        .plan-features li:last-child {
-            border-bottom: none;
-        }
-        
+        .pricing-card.featured:hover { transform: scale(1.05) translateY(-10px); }
+        .plan-name { font-size: 24px; margin-bottom: 15px; color: var(--color-text); }
+        .plan-price { font-size: 48px; font-weight: 700; color: var(--color-primary); margin-bottom: 20px; }
+        .plan-price span { font-size: 16px; color: var(--color-text-lighter); }
+        .plan-features { list-style: none; margin-bottom: 30px; }
+        .plan-features li { padding: 10px 0; border-bottom: 1px solid #eee; color: var(--color-text-light); }
+        .plan-features li:last-child { border-bottom: none; }
+
         /* CTA Section */
         .cta-section {
-            padding: 100px 0;
-            background: linear-gradient(135deg, #4361ee 0%, #3a56d4 100%);
-            text-align: center;
-            color: white;
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+            text-align: center; color: white;
         }
-        
-        .cta-section h2 {
-            font-size: 36px;
-            margin-bottom: 20px;
-        }
-        
-        .cta-section p {
-            font-size: 18px;
-            max-width: 700px;
-            margin: 0 auto 30px;
-            opacity: 0.9;
-        }
-        
-        .cta-section .cta-button {
-            background-color: white;
-            color: #4361ee;
-            font-size: 16px;
-            padding: 15px 40px;
-        }
-        
-        .cta-section .cta-button:hover {
-            background-color: #f0f4ff;
-        }
-        
+        .cta-section h2 { font-size: 36px; margin-bottom: 20px; }
+        .cta-section p { font-size: 18px; max-width: 700px; margin: 0 auto 30px; opacity: 0.9; }
+        .cta-section .cta-button { background-color: white; color: var(--color-primary); font-size: 16px; padding: 15px 40px; }
+        .cta-section .cta-button:hover { background-color: var(--color-primary-bg); }
+
         /* Footer */
-        footer {
-            background-color: #222;
-            color: #ccc;
-            padding: 70px 0 20px;
-        }
-        
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 40px;
-            margin-bottom: 50px;
-        }
-        
-        .footer-column h3 {
-            font-size: 20px;
-            color: white;
-            margin-bottom: 25px;
-        }
-        
-        .footer-links {
-            list-style: none;
-        }
-        
-        .footer-links li {
-            margin-bottom: 12px;
-        }
-        
-        .footer-links a {
-            color: #aaa;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        
-        .footer-links a:hover {
-            color: #4361ee;
-        }
-        
-        .copyright {
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid #444;
-            font-size: 14px;
-            color: #888;
-        }
-        
+        footer { background-color: var(--color-footer-bg); color: #ccc; padding: 70px 0 20px; }
+        .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; margin-bottom: 50px; }
+        .footer-column h3 { font-size: 20px; color: white; margin-bottom: 25px; }
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 12px; }
+        .footer-links a { color: #aaa; text-decoration: none; transition: color var(--transition-fast); }
+        .footer-links a:hover { color: var(--color-primary); }
+        .copyright { text-align: center; padding-top: 20px; border-top: 1px solid #444; font-size: 14px; color: #888; }
+
         /* Responsive Design */
         @media (max-width: 992px) {
-            .hero-content {
-                flex-direction: column;
-            }
-            
-            .hero-text {
-                padding-right: 0;
-                margin-bottom: 50px;
-                text-align: center;
-            }
-            
-            .hero-text p {
-                margin: 0 auto 30px;
-            }
-            
-            .pricing-card.featured {
-                transform: none;
-            }
-            
-            .pricing-card.featured:hover {
-                transform: translateY(-10px);
-            }
+            .hero-content { flex-direction: column; }
+            .hero-text { padding-right: 0; margin-bottom: 50px; text-align: center; }
+            .hero-text p { margin: 0 auto 30px; }
+            .pricing-card.featured { transform: none; }
+            .pricing-card.featured:hover { transform: var(--hover-lift); }
         }
-        
         @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-            
-            .mobile-menu-btn {
-                display: block;
-            }
-            
-            .hero-text h1 {
-                font-size: 36px;
-            }
-            
-            .section-title h2 {
-                font-size: 30px;
-            }
-            
-            .hero-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .hero-buttons button {
-                width: 100%;
-                max-width: 300px;
-            }
+            .nav-links { display: none; }
+            .mobile-menu-btn { display: block; }
+            .hero-text h1 { font-size: 36px; }
+            .section-title h2 { font-size: 30px; }
+            .hero-buttons { flex-direction: column; align-items: center; }
+            .hero-buttons button { width: 100%; max-width: 300px; }
         }
-        
         @media (max-width: 576px) {
-            .hero {
-                padding: 130px 0 80px;
-            }
-            
-            .features, .benefits, .testimonials, .pricing, .cta-section {
-                padding: 70px 0;
-            }
-            
-            .feature-card, .testimonial {
-                padding: 25px;
-            }
-            
-            .plan-price {
-                font-size: 36px;
-            }
+            .hero { padding: 130px 0 80px; }
+            .section { padding: 70px 0; }
+            .feature-card, .testimonial { padding: 25px; }
+            .plan-price { font-size: 36px; }
         }
     </style>
 </head>
@@ -608,111 +263,31 @@
     </section>
 
     <!-- Features Section -->
-    <section class="features" id="features">
+    <section class="features section" id="features">
         <div class="container">
             <div class="section-title">
                 <h2>Powerful Features for Rapid Development</h2>
                 <p>CodeFlow provides all the tools you need to build, deploy, and scale applications without writing extensive code.</p>
             </div>
             
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-th-large"></i>
-                    </div>
-                    <h3>Visual Builder</h3>
-                    <p>Drag and drop UI components to design responsive interfaces. Connect data sources with simple point-and-click actions.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-database"></i>
-                    </div>
-                    <h3>Database Integration</h3>
-                    <p>Connect to any data source with built-in connectors. Automatically generate CRUD operations without writing SQL.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-mobile-alt"></i>
-                    </div>
-                    <h3>Cross-Platform</h3>
-                    <p>Build once, deploy everywhere. Generate applications for web, iOS, and Android from a single visual design.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-code"></i>
-                    </div>
-                    <h3>Extensible with Code</h3>
-                    <p>Add custom functionality with JavaScript when needed. Our platform doesn't limit your creativity or complexity.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <h3>Enterprise Security</h3>
-                    <p>Built-in authentication, authorization, and data encryption. SOC2 compliant with enterprise-grade security features.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-rocket"></i>
-                    </div>
-                    <h3>One-Click Deployment</h3>
-                    <p>Deploy to cloud or on-premises with a single click. Automatic scaling and monitoring included.</p>
-                </div>
-            </div>
+            <div class="features-grid" id="features-grid"></div>
         </div>
     </section>
 
     <!-- Benefits Section -->
-    <section class="benefits" id="benefits">
+    <section class="benefits section" id="benefits">
         <div class="container">
             <div class="section-title">
                 <h2>Why Choose CodeFlow?</h2>
                 <p>Join thousands of companies accelerating their digital transformation with low-code development.</p>
             </div>
             
-            <div class="benefits-grid">
-                <div class="benefit-item">
-                    <div class="benefit-icon">
-                        <i class="fas fa-bolt"></i>
-                    </div>
-                    <h3>10x Faster Development</h3>
-                    <p>Build applications in days instead of months with visual development tools.</p>
-                </div>
-                
-                <div class="benefit-item">
-                    <div class="benefit-icon">
-                        <i class="fas fa-money-bill-wave"></i>
-                    </div>
-                    <h3>Reduce Costs by 70%</h3>
-                    <p>Lower development and maintenance costs with fewer resources required.</p>
-                </div>
-                
-                <div class="benefit-item">
-                    <div class="benefit-icon">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <h3>Citizen Developers</h3>
-                    <p>Enable business users to build solutions with minimal IT assistance.</p>
-                </div>
-                
-                <div class="benefit-item">
-                    <div class="benefit-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <h3>Scale Effortlessly</h3>
-                    <p>From prototype to enterprise-scale applications with the same platform.</p>
-                </div>
-            </div>
+            <div class="benefits-grid" id="benefits-grid"></div>
         </div>
     </section>
 
     <!-- Testimonials -->
-    <section class="testimonials" id="testimonials">
+    <section class="testimonials section" id="testimonials">
         <div class="container">
             <div class="section-title">
                 <h2>Trusted by Industry Leaders</h2>
@@ -720,78 +295,25 @@
             </div>
             
             <div class="testimonial-slider">
-                <div class="testimonial">
-                    <div class="testimonial-text">
-                        "CodeFlow transformed how we deliver solutions to our business units. What used to take 6 months now takes 3 weeks. Our development team can focus on complex problems while business teams build their own solutions."
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">SC</div>
-                        <div class="author-info">
-                            <h4>Sarah Chen</h4>
-                            <p>CTO, TechGrowth Inc.</p>
-                        </div>
-                    </div>
-                </div>
+                <div class="testimonial card" id="testimonial-card"></div>
             </div>
         </div>
     </section>
 
     <!-- Pricing Section -->
-    <section class="pricing" id="pricing">
+    <section class="pricing section" id="pricing">
         <div class="container">
             <div class="section-title">
                 <h2>Simple, Transparent Pricing</h2>
                 <p>Choose the plan that fits your needs. All plans include core features with no hidden fees.</p>
             </div>
             
-            <div class="pricing-grid">
-                <div class="pricing-card">
-                    <h3 class="plan-name">Starter</h3>
-                    <div class="plan-price">$29<span>/month</span></div>
-                    <ul class="plan-features">
-                        <li>Up to 5 users</li>
-                        <li>10 GB storage</li>
-                        <li>Basic components</li>
-                        <li>Community support</li>
-                        <li>1 production app</li>
-                    </ul>
-                    <button class="secondary-button">Get Started</button>
-                </div>
-                
-                <div class="pricing-card featured">
-                    <div class="featured-badge">Most Popular</div>
-                    <h3 class="plan-name">Professional</h3>
-                    <div class="plan-price">$89<span>/month</span></div>
-                    <ul class="plan-features">
-                        <li>Up to 25 users</li>
-                        <li>100 GB storage</li>
-                        <li>All components</li>
-                        <li>Priority support</li>
-                        <li>10 production apps</li>
-                        <li>Custom branding</li>
-                    </ul>
-                    <button class="cta-button">Try Free for 14 Days</button>
-                </div>
-                
-                <div class="pricing-card">
-                    <h3 class="plan-name">Enterprise</h3>
-                    <div class="plan-price">Custom</div>
-                    <ul class="plan-features">
-                        <li>Unlimited users</li>
-                        <li>Unlimited storage</li>
-                        <li>All features included</li>
-                        <li>24/7 dedicated support</li>
-                        <li>Unlimited apps</li>
-                        <li>On-premises option</li>
-                    </ul>
-                    <button class="secondary-button">Contact Sales</button>
-                </div>
-            </div>
+            <div class="pricing-grid" id="pricing-grid"></div>
         </div>
     </section>
 
     <!-- CTA Section -->
-    <section class="cta-section">
+    <section class="cta-section section">
         <div class="container">
             <h2>Start Building Today</h2>
             <p>Join over 10,000 companies that use CodeFlow to accelerate their application development. No credit card required for the free trial.</p>
@@ -852,111 +374,110 @@
     </footer>
 
     <script>
+        // ---------------------------------------------------------------------------
+        // Shared data-driven rendering: eliminates repeated HTML card structures
+        // ---------------------------------------------------------------------------
+
+        const features = [
+            { icon: 'fa-th-large', title: 'Visual Builder', desc: 'Drag and drop UI components to design responsive interfaces. Connect data sources with simple point-and-click actions.' },
+            { icon: 'fa-database', title: 'Database Integration', desc: 'Connect to any data source with built-in connectors. Automatically generate CRUD operations without writing SQL.' },
+            { icon: 'fa-mobile-alt', title: 'Cross-Platform', desc: 'Build once, deploy everywhere. Generate applications for web, iOS, and Android from a single visual design.' },
+            { icon: 'fa-code', title: 'Extensible with Code', desc: 'Add custom functionality with JavaScript when needed. Our platform doesn\'t limit your creativity or complexity.' },
+            { icon: 'fa-shield-alt', title: 'Enterprise Security', desc: 'Built-in authentication, authorization, and data encryption. SOC2 compliant with enterprise-grade security features.' },
+            { icon: 'fa-rocket', title: 'One-Click Deployment', desc: 'Deploy to cloud or on-premises with a single click. Automatic scaling and monitoring included.' },
+        ];
+
+        const benefits = [
+            { icon: 'fa-bolt', title: '10x Faster Development', desc: 'Build applications in days instead of months with visual development tools.' },
+            { icon: 'fa-money-bill-wave', title: 'Reduce Costs by 70%', desc: 'Lower development and maintenance costs with fewer resources required.' },
+            { icon: 'fa-users', title: 'Citizen Developers', desc: 'Enable business users to build solutions with minimal IT assistance.' },
+            { icon: 'fa-chart-line', title: 'Scale Effortlessly', desc: 'From prototype to enterprise-scale applications with the same platform.' },
+        ];
+
+        const pricingPlans = [
+            { name: 'Starter', price: '$29', period: '/month', features: ['Up to 5 users','10 GB storage','Basic components','Community support','1 production app'], btnClass: 'secondary-button', btnText: 'Get Started' },
+            { name: 'Professional', price: '$89', period: '/month', featured: true, features: ['Up to 25 users','100 GB storage','All components','Priority support','10 production apps','Custom branding'], btnClass: 'cta-button', btnText: 'Try Free for 14 Days' },
+            { name: 'Enterprise', price: 'Custom', period: '', features: ['Unlimited users','Unlimited storage','All features included','24/7 dedicated support','Unlimited apps','On-premises option'], btnClass: 'secondary-button', btnText: 'Contact Sales' },
+        ];
+
+        const testimonials = [
+            { text: 'CodeFlow transformed how we deliver solutions to our business units. What used to take 6 months now takes 3 weeks. Our development team can focus on complex problems while business teams build their own solutions.', name: 'Sarah Chen', position: 'CTO, TechGrowth Inc.', initials: 'SC' },
+            { text: 'We reduced our app development time by 80% using CodeFlow. The visual interface made it easy for our analysts to build data dashboards without waiting for IT resources.', name: 'Marcus Johnson', position: 'Director of Operations, DataCorp', initials: 'MJ' },
+            { text: 'As a non-technical founder, CodeFlow allowed me to build our MVP in just 2 months. I could test ideas quickly and iterate based on user feedback without deep coding knowledge.', name: 'Lisa Wang', position: 'Founder, StartupLabs', initials: 'LW' },
+        ];
+
+        // Shared render helpers
+        function renderCards(containerId, items, templateFn) {
+            const container = document.getElementById(containerId);
+            if (container) container.innerHTML = items.map(templateFn).join('');
+        }
+
+        renderCards('features-grid', features, f => `
+            <div class="feature-card card">
+                <div class="feature-icon"><i class="fas ${f.icon}"></i></div>
+                <h3>${f.title}</h3><p>${f.desc}</p>
+            </div>`);
+
+        renderCards('benefits-grid', benefits, b => `
+            <div class="benefit-item">
+                <div class="benefit-icon"><i class="fas ${b.icon}"></i></div>
+                <h3>${b.title}</h3><p>${b.desc}</p>
+            </div>`);
+
+        renderCards('pricing-grid', pricingPlans, p => `
+            <div class="pricing-card card${p.featured ? ' featured' : ''}">
+                ${p.featured ? '<div class="featured-badge">Most Popular</div>' : ''}
+                <h3 class="plan-name">${p.name}</h3>
+                <div class="plan-price">${p.price}${p.period ? '<span>' + p.period + '</span>' : ''}</div>
+                <ul class="plan-features">${p.features.map(f => '<li>' + f + '</li>').join('')}</ul>
+                <button class="${p.btnClass}">${p.btnText}</button>
+            </div>`);
+
+        // Testimonial slider
+        let currentTestimonial = 0;
+        function updateTestimonial() {
+            const t = testimonials[currentTestimonial];
+            const el = document.getElementById('testimonial-card');
+            if (el) el.innerHTML = `
+                <div class="testimonial-text">"${t.text}"</div>
+                <div class="testimonial-author">
+                    <div class="author-avatar">${t.initials}</div>
+                    <div class="author-info"><h4>${t.name}</h4><p>${t.position}</p></div>
+                </div>`;
+        }
+        updateTestimonial();
+        setInterval(() => { currentTestimonial = (currentTestimonial + 1) % testimonials.length; updateTestimonial(); }, 5000);
+
         // Mobile menu toggle
         document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
             const navLinks = document.querySelector('.nav-links');
             navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
-            
-            // Adjust for mobile
-            if (window.innerWidth <= 768) {
-                if (navLinks.style.display === 'flex') {
-                    navLinks.style.flexDirection = 'column';
-                    navLinks.style.position = 'absolute';
-                    navLinks.style.top = '80px';
-                    navLinks.style.left = '0';
-                    navLinks.style.width = '100%';
-                    navLinks.style.backgroundColor = 'white';
-                    navLinks.style.padding = '20px';
-                    navLinks.style.boxShadow = '0 10px 20px rgba(0,0,0,0.1)';
-                    
-                    const navItems = document.querySelectorAll('.nav-links li');
-                    navItems.forEach(item => {
-                        item.style.margin = '10px 0';
-                    });
-                }
+            if (window.innerWidth <= 768 && navLinks.style.display === 'flex') {
+                Object.assign(navLinks.style, { flexDirection:'column', position:'absolute', top:'80px', left:'0', width:'100%', backgroundColor:'white', padding:'20px', boxShadow:'0 10px 20px rgba(0,0,0,0.1)' });
+                document.querySelectorAll('.nav-links li').forEach(item => { item.style.margin = '10px 0'; });
             }
         });
-        
+
         // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
-                
                 const targetId = this.getAttribute('href');
-                if(targetId === '#') return;
-                
+                if (targetId === '#') return;
                 const targetElement = document.querySelector(targetId);
-                if(targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                    
-                    // Close mobile menu if open
-                    if(window.innerWidth <= 768) {
-                        document.querySelector('.nav-links').style.display = 'none';
-                    }
+                if (targetElement) {
+                    window.scrollTo({ top: targetElement.offsetTop - 80, behavior: 'smooth' });
+                    if (window.innerWidth <= 768) document.querySelector('.nav-links').style.display = 'none';
                 }
             });
         });
-        
-        // Simple testimonial slider
-        const testimonials = [
-            {
-                text: "CodeFlow transformed how we deliver solutions to our business units. What used to take 6 months now takes 3 weeks. Our development team can focus on complex problems while business teams build their own solutions.",
-                name: "Sarah Chen",
-                position: "CTO, TechGrowth Inc.",
-                initials: "SC"
-            },
-            {
-                text: "We reduced our app development time by 80% using CodeFlow. The visual interface made it easy for our analysts to build data dashboards without waiting for IT resources.",
-                name: "Marcus Johnson",
-                position: "Director of Operations, DataCorp",
-                initials: "MJ"
-            },
-            {
-                text: "As a non-technical founder, CodeFlow allowed me to build our MVP in just 2 months. I could test ideas quickly and iterate based on user feedback without deep coding knowledge.",
-                name: "Lisa Wang",
-                position: "Founder, StartupLabs",
-                initials: "LW"
-            }
-        ];
-        
-        let currentTestimonial = 0;
-        const testimonialElement = document.querySelector('.testimonial');
-        
-        function rotateTestimonial() {
-            currentTestimonial = (currentTestimonial + 1) % testimonials.length;
-            updateTestimonial();
-        }
-        
-        function updateTestimonial() {
-            const testimonial = testimonials[currentTestimonial];
-            testimonialElement.innerHTML = `
-                <div class="testimonial-text">"${testimonial.text}"</div>
-                <div class="testimonial-author">
-                    <div class="author-avatar">${testimonial.initials}</div>
-                    <div class="author-info">
-                        <h4>${testimonial.name}</h4>
-                        <p>${testimonial.position}</p>
-                    </div>
-                </div>
-            `;
-        }
-        
-        // Auto-rotate testimonials every 5 seconds
-        setInterval(rotateTestimonial, 5000);
-        
-        // CTA button interactions
-        document.querySelectorAll('.cta-button').forEach(button => {
-            button.addEventListener('click', function() {
-                alert('Thank you for your interest in CodeFlow! You would be redirected to the signup page in a real implementation.');
-            });
+
+        // CTA / pricing button interactions
+        document.querySelectorAll('.cta-button').forEach(btn => {
+            btn.addEventListener('click', () => alert('Thank you for your interest in CodeFlow! You would be redirected to the signup page in a real implementation.'));
         });
-        
-        // Pricing card interactions
-        document.querySelectorAll('.pricing-card button').forEach(button => {
-            button.addEventListener('click', function() {
+        document.querySelectorAll('.pricing-card button').forEach(btn => {
+            btn.addEventListener('click', function() {
                 const planName = this.closest('.pricing-card').querySelector('.plan-name').textContent;
                 alert(`You selected the ${planName} plan. In a real implementation, you would be redirected to the checkout process.`);
             });
