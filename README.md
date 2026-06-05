@@ -33,7 +33,7 @@ Telegram交流反馈群组：https://t.me/eooceu
 | AUTO_ACCESS | 否 | false | 是否开启自动访问保活 |
 | PORT | 否 | 3000 | HTTP服务监听端口 |
 | ARGO_PORT | 否 | 8001 | Argo隧道端口 |
-| UUID | 否 | 89c13786-25aa-4520-b2e7-12cd60fb5202 | 用户UUID |
+| UUID | 否 | *(auto-generated — set your own)* | 用户UUID |
 | NEZHA_SERVER | 否 | - | 哪吒面板域名 |
 | NEZHA_PORT | 否 | - | 哪吒端口 |
 | NEZHA_KEY | 否 | - | 哪吒密钥 |
